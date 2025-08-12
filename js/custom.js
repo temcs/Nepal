@@ -127,3 +127,59 @@ containers.forEach(container => {
       }
     });
   });
+
+
+
+
+// coinsAni animation 
+
+function launchCoinFountain() {
+    const btn = document.getElementById("coinsAni");
+    const rect = btn.getBoundingClientRect();
+
+    for (let i = 0; i < 20; i++) {
+        const coin = document.createElement("div");
+        coin.style.position = "absolute";
+        coin.style.width = "25px";
+        coin.style.height = "25px";
+        coin.style.backgroundImage = "url('https://pngimg.com/d/coin_PNG36871.png')";
+        coin.style.backgroundSize = "cover";
+        coin.style.backgroundRepeat = "no-repeat";
+        coin.style.pointerEvents = "none";
+        coin.style.zIndex = "9999";
+
+        // Random fountain spread
+        const angle = Math.random() * Math.PI - Math.PI / 2;
+        const distance = 50 + Math.random() * 50;
+        const x = Math.tan(angle) * distance;
+        const y = Math.cos(angle) * -distance;
+
+        // Position at button center (account for scrolling)
+        coin.style.left = rect.left + rect.width / 2 + "px";
+        coin.style.top = rect.top + window.scrollY + rect.height / 15 + "px";
+
+        document.body.appendChild(coin);
+
+        // Animate coin
+        coin.animate([
+            { transform: "translate(0, 0) scale(1) rotate(0deg)", opacity: 1 },
+            { transform: `translate(${x}px, ${y}px) scale(1.1) rotate(180deg)`, opacity: 1, offset: 0.5 },
+            { transform: `translate(${x}px, ${y + 150}px) scale(0.8) rotate(360deg)`, opacity: 0 }
+        ], {
+            duration: 1500,
+            easing: "ease-out"
+        });
+
+        // Remove after animation
+        setTimeout(() => coin.remove(), 1500);
+    }
+}
+
+// Start 5s after page load, run for 5s
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        let interval = setInterval(launchCoinFountain, 300);
+        setTimeout(() => clearInterval(interval), 5000);
+    }, 5000);
+});
+
