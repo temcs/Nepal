@@ -131,12 +131,8 @@ containers.forEach(container => {
 
 
 
-// coinsAni animation 
-
-function launchCoinFountain() {
-    const btn = document.getElementById("coinsAni");
-    const rect = btn.getBoundingClientRect();
-
+// coinsAni animation
+function launchCoinFountain(xPos, yPos, callback) {
     for (let i = 0; i < 20; i++) {
         const coin = document.createElement("div");
         coin.style.position = "absolute";
@@ -150,13 +146,13 @@ function launchCoinFountain() {
 
         // Random fountain spread
         const angle = Math.random() * Math.PI - Math.PI / 2;
-        const distance = 50 + Math.random() * 50;
-        const x = Math.tan(angle) * distance;
+        const distance = 50 + Math.random() * 100;
+        const x = Math.sin(angle) * distance;
         const y = Math.cos(angle) * -distance;
 
-        // Position at button center (account for scrolling)
-        coin.style.left = rect.left + rect.width / 2 + "px";
-        coin.style.top = rect.top + window.scrollY + rect.height / 15 + "px";
+        // Position at provided coordinates
+        coin.style.left = xPos + "px";
+        coin.style.top = yPos + "px";
 
         document.body.appendChild(coin);
 
@@ -173,13 +169,41 @@ function launchCoinFountain() {
         // Remove after animation
         setTimeout(() => coin.remove(), 1500);
     }
+
+    // Run callback after animation ends
+    if (callback) {
+        setTimeout(callback, 1000);
+    }
 }
 
 // Start 5s after page load, run for 5s
 window.addEventListener("load", () => {
+    // Auto fountain after load
     setTimeout(() => {
-        let interval = setInterval(launchCoinFountain, 300);
-        setTimeout(() => clearInterval(interval), 5000);
+        let btn = document.getElementById("coinsAni");
+        if (btn) {
+            const rect = btn.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + window.scrollY + rect.height / 15;
+            let interval = setInterval(() => launchCoinFountain(centerX, centerY), 300);
+            setTimeout(() => clearInterval(interval), 5000);
+        }
     }, 5000);
 });
 
+// Trigger fountain at mouse click location (non-links)
+document.addEventListener("click", (e) => {
+    const link = e.target.closest("a");
+
+    if (link) {
+        e.preventDefault(); // stop immediate navigation
+        const url = link.href;
+
+        // Play animation, then go to the link
+        launchCoinFountain(e.pageX, e.pageY, () => {
+            window.location.href = url;
+        });
+    } else {
+        launchCoinFountain(e.pageX, e.pageY);
+    }
+});
