@@ -87,7 +87,8 @@ setInterval(() => {
 const links = [
   { name: "Play in - 8MBets", url: "https://www.8mbets.net/en-np?aff=6892c79d8a&signup=1" },
   { name: "Play in - MJ88", url: "https://www.mj88rs.com/register?affiliateCode=patnership" },
-  { name: "Play in - Esewa12", url: "https://www.esewa12.com/register?affiliateCode=patnership" }
+  { name: "Play in - Esewa12", url: "https://www.esewa12.com/register?affiliateCode=patnership" },
+  { name: "Play in - Magar33", url: "https://www.magar33.live/en-np/register?aff=e0faab171c" }
 ];
 
 // Select all elements with class "gamesLinks"
@@ -111,9 +112,11 @@ containers.forEach(container => {
     "8MBts LiveChat": "https://direct.lc.chat/17319642/",
     "MJ88 LiveChat": "https://direct.lc.chat/17355666/",
     "Esewa12 LiveChat": "https://direct.lc.chat/19159242/",
+    "Magar33 LiveChat": "https://direct.lc.chat/19281199/",
     "8MBts WhatsApp": "https://api.whatsapp.com/send?phone=60172132382&text=Hello%208MBets%2C%0D%0AI%20need%20some%20information%20about%208MBets.%0D%0ACan%20you%20help%20me%3F",
     "MJ88 WhatsApp": "https://api.whatsapp.com/send?phone=601161648104&text=ho%20company%20MJ88",
-    "Esewa12 WhatsApp": "https://api.whatsapp.com/send?phone=9779701232397&text=Hi%2C%20I%20have%20some%20problem%20need%20to%20solve"
+    "Esewa12 WhatsApp": "https://api.whatsapp.com/send?phone=9779701232397&text=Hi%2C%20I%20have%20some%20problem%20need%20to%20solve",
+    "Magar33 WhatsApp": "https://httpsmagar33whatsappnp1wasapmy.wasap.my",
   };
 
   // Apply click event to all .CBChild elements in all tabs
